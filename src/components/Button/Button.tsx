@@ -4,6 +4,7 @@ import styles from "./Button.module.scss"
 
 interface ButtonProps {
     color?: string;
+    colorText?: string;
     children?: React.ReactNode;
     height?: string | number;
     onClick?: (e: React.FormEvent<HTMLButtonElement>) => void;
@@ -19,10 +20,11 @@ const Button:FC<ButtonProps> = ({
     onClick,
     width,
     style,
-    img
+    img,
+    colorText
 }) => {
     return (
-        <button onClick={onClick} style={{backgroundColor: color, height, width, ...style}} className={styles.button}>
+        <button onClick={onClick} style={{backgroundColor: color, height, width, color: colorText, ...style}} className={styles.button}>
             {img && <img src={img} alt=""/>}
             {children}
         </button>
