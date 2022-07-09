@@ -1,0 +1,167 @@
+.resultPage {
+  margin-top: 100px;
+}
+
+.resultPage__container {
+  width: 97%;
+  margin: 0 auto;
+}
+
+.resultPage__title {
+  font-size: 30px;
+}
+
+.resultPage__questions {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 30px 0 20px 0;
+}
+
+.resultPage__questionNumber {
+  width: 40px;
+  height: 40px;
+  margin: 0 5px 5px 0;
+  button {
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    &:hover {
+      background: green;
+      color: #fff;
+    }
+  }
+}
+ .banner {
+   background: #F5F5F5;
+   padding: 30px 0;
+ }
+
+ .banner__title {
+   color: red;
+ }
+.banner__mainContent {
+  display: flex;
+  justify-content: space-between;
+}
+
+ .banner__info {
+   margin-top: 20px;
+ }
+
+ .banner__subtitle {
+   font-weight: 500;
+ }
+
+ .banner__timing {
+   margin-top: 10px;
+   font-size: 12px;
+   font-weight: 500;
+ }
+
+ .banner__image {
+   img {
+     width: 350px;
+   }
+ }
+ .banner__actions {
+   text-align: center;
+   display: flex;
+   color: dodgerblue;
+   justify-content: space-between;
+   margin-top: 30px;
+   font-size: 14px;
+ }
+
+.banner__actions_left {
+  display: flex;
+  p {
+    margin-right: 50px;
+  }
+}
+
+.banner__actions_right {
+  text-align: right;
+  p {
+    margin-right: 100px;
+  }
+}
+.errors__info {
+  margin-top: 50px;
+}
+.errors__title {
+  font-size: 30px;
+}
+
+.errors__info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.errors__solve {
+  a {
+    color: dodgerblue;
+    text-decoration: underline;
+  }
+}
+
+ @media screen and (max-width: 750px) {
+   .banner__title {
+     margin-bottom: 30px;
+     font-size: 20px;
+     text-align: center;
+   }
+   .banner__mainContent {
+     flex-direction: column-reverse;
+     justify-content: center;
+     text-align: center;
+   }
+   .resultPage__container {
+     width: 90%;
+   }
+   .banner__actions_left {
+     width: 66%;
+     justify-content: space-between;
+     p {
+       margin-right: 0;
+     }
+   }
+   .banner__actions_right {
+     width: 33%;
+     p {
+       margin-right: 0;
+     }
+   }
+   .banner__actions {
+     font-size: 12px;
+   }
+ }
+
+@media screen and (max-width: 550px) {
+  .banner__actions_left {
+    width: 100%;
+    flex-wrap: wrap;
+    p {
+      width: 100%;
+      margin-top: 10px;
+    }
+  }
+  .banner__actions_right {
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+  .banner__actions {
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .banner__image {
+    img {
+      width: 100%;
+    }
+  }
+}
