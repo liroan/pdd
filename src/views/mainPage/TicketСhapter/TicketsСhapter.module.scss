@@ -1,9 +1,21 @@
 
-.ticketChapter {
+.ticketChapter__separation {
   display: flex;
   align-items: flex-start;
 }
 
+.ticketChapter__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.ticketChapter__ref {
+  a {
+    color: dodgerblue;
+    text-decoration: underline;
+  }
+}
 .ticketChapter__exam {
   background: dodgerblue;
   text-align: center;
@@ -44,13 +56,19 @@
 }
 
 @media screen and (max-width: 800px) {
-  .ticketChapter {
+  .ticketChapter__separation {
     grid-template-columns: 30% auto;
   }
 }
 
 @media screen and (max-width: 650px) {
-  .ticketChapter {
+  .ticketChapter__info {
+    flex-wrap: wrap;
+  }
+  .ticketChapter__title {
+    margin-bottom: 10px;
+  }
+  .ticketChapter__separation {
     flex-wrap: wrap;
     justify-content: center;
   }

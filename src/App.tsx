@@ -1,12 +1,19 @@
 import React from 'react';
-import './App.scss';
 import Header from "./components/Header/Header";
+import Container from "./components/Container/Container";
+import styles from "./App.module.scss";
+import MainPage from "./views/mainPage/MainPage";
 
 const App = () => {
     return (
-        <div>
+        <>
             <Header />
-        </div>
+            <Container>
+                <div className={styles.paddings}>
+                    <MainPage />
+                </div>
+            </Container>
+        </>
     )
 }
 
