@@ -18,8 +18,8 @@ const MainPage = () => {
             </div>
             <TicketChapter />
             <div className={styles.mainPage__buttonsOperation}>
-                <Button width="49%" color="purple" img={star}>Избранное</Button>
-                <Button width="49%" color="red" img={alertImg}>Мои ошибки</Button>
+                <Button width="100%" color="purple" img={star}>Избранное</Button>
+                <Button width="100%" color="red" img={alertImg}>Мои ошибки</Button>
             </div>
             <PddTopics />
             <div className={styles.mainPage__buttonsOperation}>

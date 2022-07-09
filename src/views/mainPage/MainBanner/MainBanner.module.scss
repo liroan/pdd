@@ -11,7 +11,6 @@
 .banner__info {
   width: 50%;
   margin-right: 50px;
-  text-align: center;
 }
 
 .banner__title {
@@ -22,7 +21,7 @@
 
 .banner__explanation {
   margin: 10px 0 50px 0;
-  color: #999;
+  color: #727272;
   font-weight: 400;
   font-size: 22px;
 }
@@ -40,7 +39,6 @@
 
 .banner__centering {
   display: flex;
-  justify-content: center;
 }
 
 @media screen and (max-width: 700px) {
@@ -52,8 +50,29 @@
     width: 100%;
     margin-top: 20px;
     margin-right: 0;
+    text-align: center;
   }
   .banner__picture {
     text-align: center;
+    width: 100%;
+  }
+  .banner__centering {
+    justify-content: center;
+  }
+  .banner__title {
+    font-size: 30px;
+  }
+  .banner__explanation {
+    font-size: 18px;
+    margin-bottom: 30px;
+   }
+}
+@media screen and (max-width: 500px) {
+  .banner__title {
+    font-size: 20px;
+  }
+  .banner__explanation {
+    font-size: 14px;
+    margin-bottom: 30px;
   }
 }
