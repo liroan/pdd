@@ -29,6 +29,7 @@ const App:FC<AppProps> = ({ getAllQuestions, appInitialized }) => {
                     <BrowserRouter>
                         <Routes>
                             <Route path="/ticket/:id" element={<Ticket />}/>
+                            <Route path="/exam/:id" element={<Ticket isExam />}/>
                             <Route path="/ticket/:id/result" element={<ResultPage />}/>
                             <Route path="/" element={<MainPage />}/>
                         </Routes>

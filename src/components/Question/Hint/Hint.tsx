@@ -2,7 +2,7 @@ import styles from "../Question.module.scss";
 import React, {FC} from "react";
 
 interface HintProps {
-    isResultPage: boolean;
+    isResultPage?: boolean;
     showHint: boolean;
 }
 

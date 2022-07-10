@@ -8,11 +8,12 @@ interface AnswersProps {
     addCheckedQuestion?: (payload: ICheckedQuestions) => void;
     activeQuestionNumber: number;
     selectedAnswer: number | undefined;
-    isSelectedCorrectAnswer: boolean
+    isSelectedCorrectAnswer: boolean;
+    isExam?: boolean;
 }
 
 
-const Answers:FC<AnswersProps> = ({ answers, addCheckedQuestion, activeQuestionNumber, selectedAnswer, isSelectedCorrectAnswer }) => {
+const Answers:FC<AnswersProps> = ({ answers, addCheckedQuestion, activeQuestionNumber, selectedAnswer, isSelectedCorrectAnswer, isExam }) => {
     return (
         <div className={styles.question__answers}>
             <ol>
@@ -23,6 +24,7 @@ const Answers:FC<AnswersProps> = ({ answers, addCheckedQuestion, activeQuestionN
                             isSelectedCorrectAnswer={isSelectedCorrectAnswer}
                             currentAnswer={index}
                             text={answer["answer_text"]}
+                            isExam={isExam}
                     />)
                 )}
             </ol>
