@@ -3,21 +3,23 @@ import Container from "../Container/Container";
 import orig from "../../assets/orig.png";
 
 
-const Question = () => {
+
+// @ts-ignore
+const Question = ({question, addCheckedQuestion, activeQuestionNumber, isSelectedCorrectAnswer, selectedAnswer}) => {
     return (
         <div className={styles.question}>
             <Container>
                 <h4 className={styles.question__title}>Вопрос 1</h4>
                 <div className={styles.question__image}><img src={orig} alt=""/></div>
                 <div className={styles.question__text}>
-                    <h5>В каком случае водитель должен устепить дорогу?</h5>
+                    <h5>{question.question}</h5>
                 </div>
                 <div className={styles.question__answers}>
                     <ol>
-                        <li>При недостаточной видимости</li>
-                        <li>При недостаточной видимости</li>
-                        <li>При недостаточной видимости</li>
-                        <li>При недостаточной видимости</li>
+                        {question.answers.map((answer: any, index: number) => <li onClick={() => {addCheckedQuestion({ question: activeQuestionNumber, answer: index + 1})}}>
+                            {answer.answer_text}
+                            {selectedAnswer - 1 === index && <span className={isSelectedCorrectAnswer ? styles.question__answers_correct : styles.question__answers_incorrect}> (Ваш ответ)</span>}
+                        </li>)}
                     </ol>
                 </div>
                 <div className={styles.question__rightAnswers}>
