@@ -19,3 +19,9 @@ export interface ICheckedQuestions {
     question: number,
     answer: number,
 }
+
+export interface IPddTopics {
+    [index: number]: IPddTopic;
+}
+
+export type IPddTopic = string | Array<IQuestion>;

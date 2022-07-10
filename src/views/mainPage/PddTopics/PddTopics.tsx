@@ -1,8 +1,14 @@
 import styles from "./PddTopics.module.scss"
 import lol from "../../../assets/lol.jpg"
 import Container from "../../../components/Container/Container";
+import {FC} from "react";
+import {IPddTopics} from "../../../types/types";
 
-const PddTopics = () => {
+interface PddTopicsProps {
+    pddTopics: IPddTopics[];
+}
+
+const PddTopics:FC<PddTopicsProps> = ({ pddTopics }) => {
     return (
         <div className={styles.pddTopics}>
             <Container>
@@ -15,14 +21,14 @@ const PddTopics = () => {
                 </h3>
                 <div className={styles.pddTopics__items}>
                 {
-                    new Array(20).fill(0).map((_) => {
+                    pddTopics.map((topic: any) => {
                         return (
                             <div className={styles.pddTopic}>
                                 <div className={styles.pddTopic__image}>
                                     <img src={lol} alt=""/>
                                 </div>
                                 <div className={styles.pddTopic__text}>
-                                    <p>Общие положения (25 вопросов)</p>
+                                    <p>{topic[0]} ({topic[1].length} вопросов)</p>
                                 </div>
                             </div>
                         )
