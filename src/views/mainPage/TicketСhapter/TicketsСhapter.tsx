@@ -17,7 +17,7 @@ const TicketChapter:FC = () => {
                         <Button color="#fff" colorText="dodgerblue" width="300px">Сдать экзамен</Button>
                     </div>
                 </div>
-                <TicketNumbers ticketsCount={25} />
+                <TicketNumbers />
             </div>
         </div>
     )
