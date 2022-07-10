@@ -12,9 +12,10 @@ interface TicketProps {
     pddTickets: Array<IQuestion[]>;
     addCheckedQuestion: (payload: ICheckedQuestions) => void;
     checkedQuestions: any;
+    isExam?: boolean;
 }
 
-const Ticket:FC<TicketProps> = ({pddTickets, addCheckedQuestion, checkedQuestions}) => {
+const Ticket:FC<TicketProps> = ({pddTickets, addCheckedQuestion, checkedQuestions, isExam}) => {
     const ticketNumber = Number(useParams().id || 1);
     const [activeQuestionNumber, setActiveQuestionNumber] = useState(0);
     const currentTicket = pddTickets[ticketNumber - 1];
@@ -35,11 +36,13 @@ const Ticket:FC<TicketProps> = ({pddTickets, addCheckedQuestion, checkedQuestion
                              checkedQuestions={checkedQuestions}
                              currentTicket={currentTicket}
                              activeQuestionNumber={activeQuestionNumber}
+                             isExam={isExam}
             />
             <Question question={currentTicket[activeQuestionNumber]}
                       addCheckedQuestion={addCheckedQuestion}
                       activeQuestionNumber={activeQuestionNumber}
                       selectedAnswer={checkedQuestions[activeQuestionNumber]}
+                      isExam={isExam}
             />
         </div>
     )

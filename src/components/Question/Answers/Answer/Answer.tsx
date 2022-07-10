@@ -9,9 +9,10 @@ interface AnswerProps {
     isSelectedCorrectAnswer: boolean;
     currentAnswer: number;
     text: string;
+    isExam?: boolean;
 }
 
-const Answer:FC<AnswerProps> = ({ addCheckedQuestion, selectedAnswer, activeQuestionNumber, currentAnswer, text, isSelectedCorrectAnswer }) => {
+const Answer:FC<AnswerProps> = ({ addCheckedQuestion, selectedAnswer, activeQuestionNumber, currentAnswer, text, isSelectedCorrectAnswer, isExam }) => {
     const checkQuestions = useCallback(() => {
         if (!addCheckedQuestion) return;
         addCheckedQuestion({question: activeQuestionNumber, answer: currentAnswer})
@@ -23,7 +24,7 @@ const Answer:FC<AnswerProps> = ({ addCheckedQuestion, selectedAnswer, activeQues
             {text} 
             {selectedAnswer === currentAnswer &&
                 (
-                    <span className={isSelectedCorrectAnswer ? styles.question__answers_correct : styles.question__answers_incorrect}>
+                    <span className={!isExam ? (isSelectedCorrectAnswer ? styles.question__answers_correct : styles.question__answers_incorrect) : styles.question__answers_black}>
                         (Ваш ответ)
                     </span>
                 )

@@ -14,10 +14,11 @@ interface QuestionNumbersProps {
     selectedAnswer: number | undefined;
     isResultPage?: boolean;
     activeQuestionNumber: number;
+    isExam?: boolean;
 }
 
 
-const Question:FC<QuestionNumbersProps> = ({question, addCheckedQuestion, activeQuestionNumber, selectedAnswer, isResultPage = false }) => {
+const Question:FC<QuestionNumbersProps> = ({question, addCheckedQuestion, activeQuestionNumber, selectedAnswer, isResultPage, isExam}) => {
     const [showHint, setShowHint] = useState(false);
     if (Object.keys(question).length === 0) return null;
     const isSelectedCorrectAnswer = getCorrectAnswer(question) === selectedAnswer;
@@ -34,9 +35,10 @@ const Question:FC<QuestionNumbersProps> = ({question, addCheckedQuestion, active
                          activeQuestionNumber={activeQuestionNumber}
                          selectedAnswer={selectedAnswer}
                          isSelectedCorrectAnswer={isSelectedCorrectAnswer}
+                         isExam={isExam}
                 />
-                <Hint isResultPage={isResultPage} showHint={showHint} />
-                <Help isResultPage={isResultPage} showHint={showHint} setShowHint={setShowHint} />
+                { !isExam && <Hint isResultPage={isResultPage} showHint={showHint} /> }
+                <Help isResultPage={isResultPage} showHint={showHint} setShowHint={setShowHint} isExam={isExam} />
             </Container>
         </div>
     )
