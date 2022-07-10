@@ -1,5 +1,5 @@
 
-interface IQuestionsAnswers {
+export interface IQuestionsAnswers {
     answer_text: string,
     is_correct: boolean,
 }

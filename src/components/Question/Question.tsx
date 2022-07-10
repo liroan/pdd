@@ -4,6 +4,9 @@ import orig from "../../assets/orig.png";
 import {getCorrectAnswer} from "../../utils/utils";
 import React, {FC, useState} from "react";
 import {ICheckedQuestions, IQuestion} from "../../types/types";
+import Answers from "./Answers/Answers";
+import Hint from "./Hint/Hint";
+import Help from "./Help/Help";
 
 interface QuestionNumbersProps {
     question: IQuestion;
@@ -16,8 +19,7 @@ interface QuestionNumbersProps {
 
 const Question:FC<QuestionNumbersProps> = ({question, addCheckedQuestion, activeQuestionNumber, selectedAnswer, isResultPage = false }) => {
     const [showHint, setShowHint] = useState(false);
-    if (Object.keys(question).length === 0)
-        return null;
+    if (Object.keys(question).length === 0) return null;
     const isSelectedCorrectAnswer = getCorrectAnswer(question) === selectedAnswer;
     return (
         <div className={styles.question}>
@@ -27,41 +29,14 @@ const Question:FC<QuestionNumbersProps> = ({question, addCheckedQuestion, active
                 <div className={styles.question__text}>
                     <h5>{question.question}</h5>
                 </div>
-                <div className={styles.question__answers}>
-                    <ol>
-                        {question.answers.map((answer: any, index: number) => <li onClick={addCheckedQuestion && (() => {addCheckedQuestion({ question: activeQuestionNumber, answer: index})})}
-                                                                                  className={typeof selectedAnswer === "number" ? styles.question__answers_disabled : ""}
-                        >
-                            {answer.answer_text}
-                            {selectedAnswer === index && <span className={isSelectedCorrectAnswer ? styles.question__answers_correct : styles.question__answers_incorrect}> (Ваш ответ)</span>}
-                        </li>)}
-                    </ol>
-                </div>
-                {
-                    (isResultPage || showHint) &&
-                    (
-                        <div className={styles.question__rightAnswers}>
-                            <h6>Правильный ответ: 3</h6>
-                            <p>При недостаточной видимостиПри недостаточной видимостиПри недостаточной видимости При недостаточной видимостиПри недостаточной видимостиПри недостаточной видимости</p>
-                        </div>
-                    )
-                }
-                {
-                    !isResultPage &&
-                    (
-                        <div className={styles.question__actions}>
-                            <div className={styles.question__help}>
-                                {
-                                    !showHint ?
-                                        <p onClick={() => setShowHint(true)}>Показать подсказку</p> :
-                                        <p onClick={() => setShowHint(false)}>Убрать подсказку</p>
-                                }
-                                <p>-{"->"}</p>
-                            </div>
-                            <p>Пропустить</p>
-                        </div>
-                    )
-                }
+                <Answers answers={question.answers}
+                         addCheckedQuestion={addCheckedQuestion}
+                         activeQuestionNumber={activeQuestionNumber}
+                         selectedAnswer={selectedAnswer}
+                         isSelectedCorrectAnswer={isSelectedCorrectAnswer}
+                />
+                <Hint isResultPage={isResultPage} showHint={showHint} />
+                <Help isResultPage={isResultPage} showHint={showHint} setShowHint={setShowHint} />
             </Container>
         </div>
     )
