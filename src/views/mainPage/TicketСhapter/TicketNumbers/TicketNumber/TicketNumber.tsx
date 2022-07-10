@@ -1,5 +1,6 @@
 import {FC} from "react";
 import styles from "../../TicketsСhapter.module.scss";
+import {Link} from "react-router-dom";
 
 interface TicketNumberProps {
     index: number;
@@ -8,11 +9,11 @@ interface TicketNumberProps {
 const TicketNumber:FC<TicketNumberProps> = ({ index }) => {
     return (
         <div className={styles.ticketChapter__ticketNumber}>
-            <a href={"/ticket/" + index}>
+            <Link to={"/ticket/" + (index + 1)}>
                 <button>
-                    { index }
+                    { index + 1 }
                 </button>
-            </a>
+            </Link>
         </div>
     )
 }

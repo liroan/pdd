@@ -30,7 +30,13 @@
     list-style: decimal;
     color: dodgerblue;
     margin-bottom: 25px;
+    cursor: pointer;
   }
+}
+
+.question__answers_disabled {
+  pointer-events: none;
+  cursor: not-allowed;
 }
 
 .question__actions {
@@ -57,6 +63,13 @@
   font-size: 14px;
 }
 
+.question__answers_correct {
+  color: green;
+}
+
+.question__answers_incorrect {
+  color: red;
+}
 
 @media screen and (max-width: 500px) {
   .question__answers {
