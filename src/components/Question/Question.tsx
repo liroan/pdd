@@ -2,12 +2,19 @@ import styles from "./Question.module.scss";
 import Container from "../Container/Container";
 import orig from "../../assets/orig.png";
 import {getCorrectAnswer} from "../../utils/utils";
-import {useState} from "react";
+import React, {FC, useState} from "react";
+import {ICheckedQuestions, IQuestion} from "../../types/types";
+
+interface QuestionNumbersProps {
+    question: IQuestion;
+    addCheckedQuestion?: (payload: ICheckedQuestions) => void;
+    selectedAnswer: number | undefined;
+    isResultPage?: boolean;
+    activeQuestionNumber: number;
+}
 
 
-
-// @ts-ignore
-const Question = ({question, addCheckedQuestion, activeQuestionNumber, selectedAnswer, isResultPage = false }) => {
+const Question:FC<QuestionNumbersProps> = ({question, addCheckedQuestion, activeQuestionNumber, selectedAnswer, isResultPage = false }) => {
     const [showHint, setShowHint] = useState(false);
     if (Object.keys(question).length === 0)
         return null;
@@ -22,7 +29,7 @@ const Question = ({question, addCheckedQuestion, activeQuestionNumber, selectedA
                 </div>
                 <div className={styles.question__answers}>
                     <ol>
-                        {question.answers.map((answer: any, index: number) => <li onClick={() => {addCheckedQuestion({ question: activeQuestionNumber, answer: index})}}
+                        {question.answers.map((answer: any, index: number) => <li onClick={addCheckedQuestion && (() => {addCheckedQuestion({ question: activeQuestionNumber, answer: index})})}
                                                                                   className={typeof selectedAnswer === "number" ? styles.question__answers_disabled : ""}
                         >
                             {answer.answer_text}

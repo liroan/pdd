@@ -1,25 +1,36 @@
 import {mainData} from "../api/dal";
+import {ICheckedQuestions, IQuestion} from "../types/types";
 
 const SET_TICKETS = "SET_TICKETS";
 const ADD_CHECKED_QUESTION = "ADD_CHECKED_QUESTION";
 const SET_APP_INITIALIZED = "SET_APP_INITIALIZED";
-const initialState = {
+
+interface InitialStateInterface {
+    pddTickets: Array<IQuestion[]> | null,
+    checkedQuestions: any,
+    appInitialized: boolean,
+}
+
+interface ActionInterface<T> {
+    type: string;
+    payload?: T;
+}
+
+const initialState: InitialStateInterface = {
     pddTickets: null,
     checkedQuestions: {},
     appInitialized: false,
 }
 
 
-const mainReducer = (state = initialState, action: any) => {
+const mainReducer = (state = initialState, action: ActionInterface<any>) => {
     switch (action.type) {
         case SET_TICKETS:
-            console.log('kkkkfdsfdsfds')
             return {
                 ...state,
                 pddTickets: action.payload,
             }
         case ADD_CHECKED_QUESTION:
-            console.log('kkkk')
             return {
                 ...state,
                 checkedQuestions: {
@@ -37,13 +48,14 @@ const mainReducer = (state = initialState, action: any) => {
     }
 }
 
-const setTickets = (tickets: any) => ({ type: SET_TICKETS,  payload: tickets })
-export const addCheckedQuestion = (payload: any) => ({ type: ADD_CHECKED_QUESTION,  payload: payload })
-const setAppInitialized = () => ({ type: SET_APP_INITIALIZED })
-const convertToArrayTickets = (questions: any[]) => {
-    const countQuestionsInTickets = 20;
-    const tickets = new Array(questions.length / countQuestionsInTickets);
-    questions.forEach((question: any, index: number) => {
+const setTickets = (tickets: Array<IQuestion[]>):ActionInterface<Array<IQuestion[]>> => ({ type: SET_TICKETS,  payload: tickets });
+export const addCheckedQuestion = (payload: ICheckedQuestions):ActionInterface<ICheckedQuestions> => ({ type: ADD_CHECKED_QUESTION,  payload: payload });
+const setAppInitialized = ():ActionInterface<any> => ({ type: SET_APP_INITIALIZED });
+
+const convertToArrayTickets = (questions: IQuestion[]): Array<IQuestion[]> => {
+    const countQuestionsInTickets: number = 20;
+    const tickets:Array<IQuestion[]> = new Array(questions.length / countQuestionsInTickets);
+    questions.forEach((question, index: number) => {
         const i = Math.floor(index / 20);
         if (!tickets[i]) tickets[i] = [];
         tickets[i].push(question);
@@ -52,7 +64,7 @@ const convertToArrayTickets = (questions: any[]) => {
 }
 
 export const getAllQuestions = () => (dispatch: (arg0: { type: string; payload?: any; }) => void) => {
-    mainData.getAllQuestions().then(res => {
+    mainData.getAllQuestions().then((res:IQuestion[]) => {
         const tickets = convertToArrayTickets(res);
         dispatch(setTickets(tickets))
         dispatch(setAppInitialized())

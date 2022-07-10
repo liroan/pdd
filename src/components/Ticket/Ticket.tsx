@@ -6,9 +6,11 @@ import QuestionNumbers from "./QuestionNumbers/QuestionNumbers";
 import {Link, useParams} from "react-router-dom";
 import {connect} from "react-redux";
 import {addCheckedQuestion} from "../../store/mainReducer";
+import {ICheckedQuestions, IQuestion} from "../../types/types";
+
 interface TicketProps {
-    pddTickets: any;
-    addCheckedQuestion: any;
+    pddTickets: Array<IQuestion[]>;
+    addCheckedQuestion: (payload: ICheckedQuestions) => void;
     checkedQuestions: any;
 }
 

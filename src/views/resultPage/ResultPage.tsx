@@ -3,12 +3,12 @@ import {FC} from "react";
 import pddHunt from "../../assets/pddHunt.png"
 import {useParams} from "react-router-dom";
 import {connect} from "react-redux";
-import {addCheckedQuestion} from "../../store/mainReducer";
 import QuestionNumbers from "../../components/Ticket/QuestionNumbers/QuestionNumbers";
 import Question from "../../components/Question/Question";
+import {IQuestion} from "../../types/types";
 
 interface ResultPageProps {
-    pddTickets: any;
+    pddTickets: Array<IQuestion[]>;
     checkedQuestions: any;
 }
 
@@ -17,7 +17,6 @@ const ResultPage:FC<ResultPageProps> = ({pddTickets, checkedQuestions}) => {
     const currentTicket = pddTickets[ticketNumber - 1];
     let errors = 0;
     const errorQuestions = currentTicket.map((question : any, index: any) => {
-        console.log(checkedQuestions, currentTicket)
         if (question.answers[checkedQuestions[index]].is_correct)
             return {}
         errors++;
@@ -26,10 +25,7 @@ const ResultPage:FC<ResultPageProps> = ({pddTickets, checkedQuestions}) => {
     return (
         <div className={styles.resultPage}>
             <h3 className={styles.resultPage__title}>Билет {ticketNumber}. Результаты тренировки</h3>
-            <QuestionNumbers setActiveQuestionNumber={undefined}
-                             checkedQuestions={checkedQuestions}
-                             currentTicket={currentTicket}
-            />
+            <QuestionNumbers checkedQuestions={checkedQuestions} currentTicket={currentTicket} />
             <div className={styles.banner}>
                 <div className={styles.resultPage__container}>
                     <h1 className={styles.banner__title}>К сожалению вы не прошли тестирование</h1>
@@ -57,10 +53,9 @@ const ResultPage:FC<ResultPageProps> = ({pddTickets, checkedQuestions}) => {
                     <div className={styles.errors__solve}><a href="/">Прорешать задачу</a></div>
                 </div>
                 {
-                    errorQuestions.map((question: any, index: any) => {
+                    errorQuestions.map((question: IQuestion, index: any) => {
                         return (
                             <Question question={question}
-                                      addCheckedQuestion={addCheckedQuestion}
                                       activeQuestionNumber={index}
                                       selectedAnswer={checkedQuestions[index]}
                                       isResultPage

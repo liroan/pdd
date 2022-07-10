@@ -1,10 +1,17 @@
 import styles from "./QuestionNumbers.module.scss";
 import {getCorrectAnswer} from "../../../utils/utils";
+import {IQuestion} from "../../../types/types";
+import React, {FC} from "react";
 
 
+interface QuestionNumbersProps {
+    setActiveQuestionNumber?: React.Dispatch<React.SetStateAction<number>>;
+    checkedQuestions: any;
+    currentTicket: IQuestion[];
+    activeQuestionNumber?: number;
+}
 
-// @ts-ignore
-const QuestionNumbers = ({setActiveQuestionNumber, checkedQuestions, currentTicket, activeQuestionNumber = -1}) => {
+const QuestionNumbers:FC<QuestionNumbersProps> = ({setActiveQuestionNumber, checkedQuestions, currentTicket, activeQuestionNumber = -1}) => {
     const questions = new Array(currentTicket.length).fill(0);
     return (
         <div className={styles.ticket__questions}>
