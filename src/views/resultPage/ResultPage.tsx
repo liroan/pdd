@@ -1,37 +1,41 @@
 import styles from "./ResultPage.module.scss"
 import {FC} from "react";
 import pddHunt from "../../assets/pddHunt.png"
+import {useParams} from "react-router-dom";
+import {connect} from "react-redux";
+import {addCheckedQuestion} from "../../store/mainReducer";
+import QuestionNumbers from "../../components/Ticket/QuestionNumbers/QuestionNumbers";
+import Question from "../../components/Question/Question";
 
 interface ResultPageProps {
-    ticketNumber: number;
+    pddTickets: any;
+    checkedQuestions: any;
 }
 
-const ResultPage:FC<ResultPageProps> = ({ticketNumber}) => {
-    const questions = new Array(25).fill(0);
+const ResultPage:FC<ResultPageProps> = ({pddTickets, checkedQuestions}) => {
+    const ticketNumber = Number(useParams().id || 1);
+    const currentTicket = pddTickets[ticketNumber - 1];
+    let errors = 0;
+    const errorQuestions = currentTicket.map((question : any, index: any) => {
+        console.log(checkedQuestions, currentTicket)
+        if (question.answers[checkedQuestions[index]].is_correct)
+            return {}
+        errors++;
+        return question;
+    })
     return (
         <div className={styles.resultPage}>
             <h3 className={styles.resultPage__title}>Билет {ticketNumber}. Результаты тренировки</h3>
-            <div className={styles.resultPage__questions}>
-                {
-                    questions.map((_, i) => {
-                        return (
-                            <div className={styles.resultPage__questionNumber}>
-                                <a href={"/ticket/" + i}>
-                                    <button>
-                                        { i }
-                                    </button>
-                                </a>
-                            </div>
-                        )
-                    })
-                }
-            </div>
+            <QuestionNumbers setActiveQuestionNumber={undefined}
+                             checkedQuestions={checkedQuestions}
+                             currentTicket={currentTicket}
+            />
             <div className={styles.banner}>
                 <div className={styles.resultPage__container}>
                     <h1 className={styles.banner__title}>К сожалению вы не прошли тестирование</h1>
                     <div className={styles.banner__mainContent}>
                         <div className={styles.banner__info}>
-                            <h2 className={styles.banner__subtitle}>Правильных ответов 5 из 20</h2>
+                            <h2 className={styles.banner__subtitle}>Правильных ответов {20 - errors} из 20</h2>
                             <h3 className={styles.banner__timing}>Время тестирования: 08:50</h3>
                         </div>
                         <div className={styles.banner__image}>
@@ -49,13 +53,29 @@ const ResultPage:FC<ResultPageProps> = ({ticketNumber}) => {
             </div>
             <div className={styles.errors}>
                 <div className={styles.errors__info}>
-                    <h3 className={styles.errors__title}>Вы допустили 13 ошибок</h3>
+                    <h3 className={styles.errors__title}>Вы допустили {errors} ошибок</h3>
                     <div className={styles.errors__solve}><a href="/">Прорешать задачу</a></div>
                 </div>
-
+                {
+                    errorQuestions.map((question: any, index: any) => {
+                        return (
+                            <Question question={question}
+                                      addCheckedQuestion={addCheckedQuestion}
+                                      activeQuestionNumber={index}
+                                      selectedAnswer={checkedQuestions[index]}
+                                      isResultPage
+                            />
+                        )
+                    })
+                }
             </div>
         </div>
 )
 }
 
-export default ResultPage;
+const mapStateToProps = (state: any) => ({
+    pddTickets: state.mainData.pddTickets,
+    checkedQuestions: state.mainData.checkedQuestions,
+})
+
+export default connect(mapStateToProps)(ResultPage);

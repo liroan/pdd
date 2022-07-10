@@ -30,7 +30,13 @@
     list-style: decimal;
     color: dodgerblue;
     margin-bottom: 25px;
+    cursor: pointer;
   }
+}
+
+.question__answers_disabled {
+  pointer-events: none;
+  cursor: not-allowed;
 }
 
 .question__actions {

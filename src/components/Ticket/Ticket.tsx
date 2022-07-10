@@ -16,7 +16,6 @@ const Ticket:FC<TicketProps> = ({pddTickets, addCheckedQuestion, checkedQuestion
     const ticketNumber = Number(useParams().id || 1);
     const [activeQuestionNumber, setActiveQuestionNumber] = useState(0);
     const currentTicket = pddTickets[ticketNumber - 1];
-    const isCorrectAnswer = checkedQuestions[activeQuestionNumber] === Number(currentTicket[activeQuestionNumber]["correct_answer"].split(": ")[1])
     return (
         <div className={styles.ticket}>
             <h2 className={styles.ticket__title}>Тренировочный билет {ticketNumber}</h2>
@@ -33,11 +32,11 @@ const Ticket:FC<TicketProps> = ({pddTickets, addCheckedQuestion, checkedQuestion
             <QuestionNumbers setActiveQuestionNumber={setActiveQuestionNumber}
                              checkedQuestions={checkedQuestions}
                              currentTicket={currentTicket}
+                             activeQuestionNumber={activeQuestionNumber}
             />
             <Question question={currentTicket[activeQuestionNumber]}
                       addCheckedQuestion={addCheckedQuestion}
                       activeQuestionNumber={activeQuestionNumber}
-                      isSelectedCorrectAnswer={isCorrectAnswer}
                       selectedAnswer={checkedQuestions[activeQuestionNumber]}
             />
         </div>

@@ -25,7 +25,7 @@ const App = ({ getAllQuestions, appInitialized }) => {
                     <BrowserRouter>
                         <Routes>
                             <Route path="/ticket/:id" element={<Ticket />}/>
-                            <Route path="/ticket/:id/result" element={<ResultPage ticketNumber={5} />}/>
+                            <Route path="/ticket/:id/result" element={<ResultPage />}/>
                             <Route path="/" element={<MainPage />}/>
                         </Routes>
                     </BrowserRouter>
@@ -36,8 +36,6 @@ const App = ({ getAllQuestions, appInitialized }) => {
 }
 
 const mapStateToProps = (state: any) => ({
-    pddTickets: state.mainData.pddTickets,
-    checkedQuestions: state.mainData.checkedQuestions,
     appInitialized: state.mainData.appInitialized,
 })
 

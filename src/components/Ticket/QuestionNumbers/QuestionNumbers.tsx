@@ -1,19 +1,21 @@
 import styles from "./QuestionNumbers.module.scss";
+import {getCorrectAnswer} from "../../../utils/utils";
 
 
 
 // @ts-ignore
-const QuestionNumbers = ({setActiveQuestionNumber, checkedQuestions, currentTicket}) => {
+const QuestionNumbers = ({setActiveQuestionNumber, checkedQuestions, currentTicket, activeQuestionNumber = -1}) => {
     const questions = new Array(currentTicket.length).fill(0);
     return (
         <div className={styles.ticket__questions}>
             {
                 questions.map((_, i) => {
-                    const isCorrectAnswer = checkedQuestions[i] === Number(currentTicket[i]["correct_answer"].split(": ")[1])
-                    const color = checkedQuestions[i] ? (isCorrectAnswer ? "green" : "red") : "#fff";
+                    console.log(checkedQuestions[i])
+                    const isCorrectAnswer = checkedQuestions[i] === getCorrectAnswer(currentTicket[i]);
+                    const color = typeof checkedQuestions[i] === "number" ? (isCorrectAnswer ? "green" : "red") : (activeQuestionNumber === i ? "#999" : "#fff");
                     return (
                         <div className={styles.ticket__questionNumber}>
-                            <button onClick={() => setActiveQuestionNumber(i)} style={{ background: color }}>
+                            <button onClick={setActiveQuestionNumber && (() => setActiveQuestionNumber(i))} style={{ background: color }}>
                                 { i + 1 }
                             </button>
                         </div>

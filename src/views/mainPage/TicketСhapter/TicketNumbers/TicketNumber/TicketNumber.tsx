@@ -9,7 +9,7 @@ interface TicketNumberProps {
 const TicketNumber:FC<TicketNumberProps> = ({ index }) => {
     return (
         <div className={styles.ticketChapter__ticketNumber}>
-            <Link to={"/ticket/" + index}>
+            <Link to={"/ticket/" + (index + 1)}>
                 <button>
                     { index + 1 }
                 </button>
