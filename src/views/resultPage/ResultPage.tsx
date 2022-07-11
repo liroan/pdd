@@ -17,7 +17,7 @@ const ResultPage:FC<ResultPageProps> = ({pddTickets, checkedQuestions}) => {
     const currentTicket = pddTickets[ticketNumber - 1];
     let errors = 0;
     const errorQuestions = currentTicket.map((question : any, index: any) => {
-        if (question.answers[checkedQuestions[index]].is_correct)
+        if (typeof checkedQuestions[index] === "number" && question.answers[checkedQuestions[index]].is_correct)
             return {}
         errors++;
         return question;
