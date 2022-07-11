@@ -1,14 +1,19 @@
 import {mainData} from "../api/dal";
 import {ICheckedQuestions, IPddTopics, IQuestion} from "../types/types";
+import { nanoid } from 'nanoid';
 
 const SET_TICKETS = "SET_TICKETS";
 const ADD_CHECKED_QUESTION = "ADD_CHECKED_QUESTION";
 const SET_APP_INITIALIZED = "SET_APP_INITIALIZED";
 const SET_TOPICS = "SET_TOPICS";
+const ADD_ERROR_QUESTIONS = "ADD_ERROR_QUESTIONS";
+const ADD_CHOSEN_QUESTION = "ADD_CHOSEN_QUESTION";
 
 interface InitialStateInterface {
     pddTickets: Array<IQuestion[]> | null,
     pddTopics: IPddTopics[] | any,
+    errorQuestions: any,
+    chosenQuestions: any,
     checkedQuestions: any,
     appInitialized: boolean,
 }
@@ -22,7 +27,9 @@ const initialState: InitialStateInterface = {
     pddTickets: null,
     pddTopics: null,
     checkedQuestions: {},
+    chosenQuestions: {},
     appInitialized: false,
+    errorQuestions: {},
 }
 
 
@@ -51,6 +58,22 @@ const mainReducer = (state = initialState, action: ActionInterface<any>) => {
                 ...state,
                 appInitialized: true,
             }
+        case ADD_ERROR_QUESTIONS:
+            const newErrorQuestions = { ...state.errorQuestions };
+            action.payload.forEach((question: IQuestion) => {
+                newErrorQuestions[question.id] = question;
+            })
+            console.log(newErrorQuestions, Object.entries(newErrorQuestions))
+            return {
+                ...state,
+                errorQuestions: newErrorQuestions
+            }
+        case ADD_CHOSEN_QUESTION:
+            const question = action.payload;
+            return {
+                ...state,
+                chosenQuestions: { ...state.chosenQuestions, [question.id]: question}
+            }
         default:
             return state;
     }
@@ -60,7 +83,8 @@ const setTickets = (tickets: Array<IQuestion[]>):ActionInterface<Array<IQuestion
 const setTopics = (topics: any):ActionInterface<Array<IQuestion[]>> => ({ type: SET_TOPICS,  payload: topics });
 export const addCheckedQuestion = (payload: ICheckedQuestions):ActionInterface<ICheckedQuestions> => ({ type: ADD_CHECKED_QUESTION,  payload: payload });
 const setAppInitialized = ():ActionInterface<any> => ({ type: SET_APP_INITIALIZED });
-
+export const addErrorQuestions = (questions: IQuestion[]):ActionInterface<IQuestion[]> => ({ type: ADD_ERROR_QUESTIONS,  payload: questions });
+export const addChosenQuestions = (question: IQuestion):ActionInterface<IQuestion> => ({ type: ADD_CHOSEN_QUESTION,  payload: question });
 const convertToArrayTickets = (questions: IQuestion[]): Array<IQuestion[]> => {
     const countQuestionsInTickets: number = 20;
     const tickets:Array<IQuestion[]> = new Array(questions.length / countQuestionsInTickets);
@@ -70,6 +94,12 @@ const convertToArrayTickets = (questions: IQuestion[]): Array<IQuestion[]> => {
         tickets[i].push(question);
     })
     return tickets;
+}
+
+
+
+const addIdInQuestion = (questions: IQuestion[]): IQuestion[] => {
+    return questions.map(question => ({...question, id: nanoid()}))
 }
 
 
@@ -83,9 +113,10 @@ const convertToArrayPDDTopics = (questions: IQuestion[]): IPddTopics[] => {
 }
 
 export const getAllQuestions = () => (dispatch: (arg0: { type: string; payload?: any; }) => void) => {
-    mainData.getAllQuestions().then((res:IQuestion[]) => {
-        const tickets = convertToArrayTickets(res);
-        const topics = convertToArrayPDDTopics(res);
+    mainData.getAllQuestions().then((questions:IQuestion[]) => {
+        const questionsWithId = addIdInQuestion(questions);
+        const tickets = convertToArrayTickets(questionsWithId);
+        const topics = convertToArrayPDDTopics(questionsWithId);
         dispatch(setTickets(tickets))
         dispatch(setTopics(topics))
         dispatch(setAppInitialized())

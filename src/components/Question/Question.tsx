@@ -25,7 +25,7 @@ const Question:FC<QuestionNumbersProps> = ({question, addCheckedQuestion, active
     return (
         <div className={styles.question}>
             <Container>
-                <h4 className={styles.question__title}>Вопрос {activeQuestionNumber + 1}</h4>
+                <h4 className={styles.question__title}>{question.title}</h4>
                 <div className={styles.question__image}><img src={orig} alt=""/></div>
                 <div className={styles.question__text}>
                     <h5>{question.question}</h5>
@@ -36,6 +36,7 @@ const Question:FC<QuestionNumbersProps> = ({question, addCheckedQuestion, active
                          selectedAnswer={selectedAnswer}
                          isSelectedCorrectAnswer={isSelectedCorrectAnswer}
                          isExam={isExam}
+                         questionId={question.id}
                 />
                 { !isExam && <Hint isResultPage={isResultPage} showHint={showHint} /> }
                 <Help isResultPage={isResultPage} showHint={showHint} setShowHint={setShowHint} isExam={isExam} />

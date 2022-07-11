@@ -13,10 +13,11 @@ export interface IQuestion {
     correct_answer: string,
     answer_tip: string,
     topic: string,
+    id: string,
 }
 
 export interface ICheckedQuestions {
-    question: number,
+    question: string,
     answer: number,
 }
 
