@@ -41,7 +41,7 @@ const Ticket:FC<TicketProps> = ({pddTickets, addCheckedQuestion, checkedQuestion
             <Question question={currentTicket[activeQuestionNumber]}
                       addCheckedQuestion={addCheckedQuestion}
                       activeQuestionNumber={activeQuestionNumber}
-                      selectedAnswer={checkedQuestions[activeQuestionNumber]}
+                      selectedAnswer={checkedQuestions[currentTicket[activeQuestionNumber].id]}
                       isExam={isExam}
             />
         </div>

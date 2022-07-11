@@ -10,13 +10,15 @@ interface AnswerProps {
     currentAnswer: number;
     text: string;
     isExam?: boolean;
+    questionId: string;
 }
 
-const Answer:FC<AnswerProps> = ({ addCheckedQuestion, selectedAnswer, activeQuestionNumber, currentAnswer, text, isSelectedCorrectAnswer, isExam }) => {
+const Answer:FC<AnswerProps> = ({ addCheckedQuestion, selectedAnswer, activeQuestionNumber,
+                                    currentAnswer, text, isSelectedCorrectAnswer, isExam, questionId }) => {
     const checkQuestions = useCallback(() => {
         if (!addCheckedQuestion) return;
-        addCheckedQuestion({question: activeQuestionNumber, answer: currentAnswer})
-    }, [activeQuestionNumber, currentAnswer])
+        addCheckedQuestion({question: questionId, answer: currentAnswer})
+    }, [activeQuestionNumber, currentAnswer, questionId])
     return (
         <li onClick={checkQuestions}
             className={typeof selectedAnswer === "number" ? styles.question__answers_disabled : ""}
