@@ -6,7 +6,6 @@ import Answer from "./Answer/Answer";
 interface AnswersProps {
     answers: IQuestionsAnswers[];
     addCheckedQuestion?: (payload: ICheckedQuestions) => void;
-    activeQuestionNumber: number;
     selectedAnswer: number | undefined;
     isSelectedCorrectAnswer: boolean;
     isExam?: boolean;
@@ -14,14 +13,13 @@ interface AnswersProps {
 }
 
 
-const Answers:FC<AnswersProps> = ({ answers, addCheckedQuestion, activeQuestionNumber,
+const Answers:FC<AnswersProps> = ({ answers, addCheckedQuestion,
                                       selectedAnswer, isSelectedCorrectAnswer, isExam, questionId }) => {
     return (
         <div className={styles.question__answers}>
             <ol>
                 {answers.map((answer: any, index: number) => (
                     <Answer addCheckedQuestion={addCheckedQuestion}
-                            activeQuestionNumber={activeQuestionNumber}
                             selectedAnswer={selectedAnswer}
                             isSelectedCorrectAnswer={isSelectedCorrectAnswer}
                             currentAnswer={index}

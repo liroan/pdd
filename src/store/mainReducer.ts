@@ -8,10 +8,12 @@ const SET_APP_INITIALIZED = "SET_APP_INITIALIZED";
 const SET_TOPICS = "SET_TOPICS";
 const ADD_ERROR_QUESTIONS = "ADD_ERROR_QUESTIONS";
 const ADD_CHOSEN_QUESTION = "ADD_CHOSEN_QUESTION";
+const SET_ALL_QUESTIONS = "SET_ALL_QUESTIONS";
 
 interface InitialStateInterface {
     pddTickets: Array<IQuestion[]> | null,
     pddTopics: IPddTopics[] | any,
+    allQuestions: IQuestion[],
     errorQuestions: any,
     chosenQuestions: any,
     checkedQuestions: any,
@@ -28,6 +30,7 @@ const initialState: InitialStateInterface = {
     pddTopics: null,
     checkedQuestions: {},
     chosenQuestions: {},
+    allQuestions: [],
     appInitialized: false,
     errorQuestions: {},
 }
@@ -39,6 +42,11 @@ const mainReducer = (state = initialState, action: ActionInterface<any>) => {
             return {
                 ...state,
                 pddTickets: action.payload,
+            }
+        case SET_ALL_QUESTIONS:
+            return {
+                ...state,
+                allQuestions: action.payload,
             }
         case SET_TOPICS:
             return {
@@ -79,6 +87,7 @@ const mainReducer = (state = initialState, action: ActionInterface<any>) => {
     }
 }
 
+const setAllQuestions = (questions: IQuestion[]):ActionInterface<IQuestion[]> => ({ type: SET_ALL_QUESTIONS,  payload: questions });
 const setTickets = (tickets: Array<IQuestion[]>):ActionInterface<Array<IQuestion[]>> => ({ type: SET_TICKETS,  payload: tickets });
 const setTopics = (topics: any):ActionInterface<Array<IQuestion[]>> => ({ type: SET_TOPICS,  payload: topics });
 export const addCheckedQuestion = (payload: ICheckedQuestions):ActionInterface<ICheckedQuestions> => ({ type: ADD_CHECKED_QUESTION,  payload: payload });
@@ -117,6 +126,7 @@ export const getAllQuestions = () => (dispatch: (arg0: { type: string; payload?:
         const questionsWithId = addIdInQuestion(questions);
         const tickets = convertToArrayTickets(questionsWithId);
         const topics = convertToArrayPDDTopics(questionsWithId);
+        dispatch(setAllQuestions(questionsWithId))
         dispatch(setTickets(tickets))
         dispatch(setTopics(topics))
         dispatch(setAppInitialized())

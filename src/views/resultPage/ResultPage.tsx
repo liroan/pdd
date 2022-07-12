@@ -54,10 +54,9 @@ const ResultPage:FC<ResultPageProps> = ({pddTickets, checkedQuestions, addErrorQ
                     <div className={styles.errors__solve}><a href="/">Прорешать задачу</a></div>
                 </div>
                 {
-                    errorQuestions.map((question: IQuestion, index: any) => {
+                    errorQuestions.map((question: IQuestion) => {
                         return (
                             <Question question={question}
-                                      activeQuestionNumber={index}
                                       selectedAnswer={checkedQuestions[question.id]}
                                       isResultPage
                             />

@@ -1,12 +1,12 @@
 import styles from "./Ticket.module.scss"
 import {FC, useState} from "react";
-import clock from "../../assets/clock.png"
 import Question from "../Question/Question";
 import QuestionNumbers from "./QuestionNumbers/QuestionNumbers";
-import {Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {connect} from "react-redux";
 import {addCheckedQuestion} from "../../store/mainReducer";
 import {ICheckedQuestions, IQuestion} from "../../types/types";
+import ThematicHeader from "../ThematicHeader/ThematicHeader";
 
 interface TicketProps {
     pddTickets: Array<IQuestion[]>;
@@ -21,17 +21,7 @@ const Ticket:FC<TicketProps> = ({pddTickets, addCheckedQuestion, checkedQuestion
     const currentTicket = pddTickets[ticketNumber - 1];
     return (
         <div className={styles.ticket}>
-            <h2 className={styles.ticket__title}>Тренировочный билет {ticketNumber}</h2>
-            <h3 className={styles.ticket__subtitle}>Билет {ticketNumber} ПДД 2022 решать онлайн</h3>
-            <div className={styles.ticket__info}>
-                <div className={styles.ticket__time}>
-                    <img src={clock} alt=""/>
-                    11:29
-                </div>
-                <div className={styles.ticket__exit}>
-                    <Link to={`/ticket/${ticketNumber}/result`}>завершить досрочно</Link>
-                </div>
-            </div>
+            <ThematicHeader title={`Тренировочный билет ${ticketNumber}`} subtitle={`Билет ${ticketNumber} ПДД 2022 решать онлайн`}/>
             <QuestionNumbers setActiveQuestionNumber={setActiveQuestionNumber}
                              checkedQuestions={checkedQuestions}
                              currentTicket={currentTicket}
@@ -40,7 +30,6 @@ const Ticket:FC<TicketProps> = ({pddTickets, addCheckedQuestion, checkedQuestion
             />
             <Question question={currentTicket[activeQuestionNumber]}
                       addCheckedQuestion={addCheckedQuestion}
-                      activeQuestionNumber={activeQuestionNumber}
                       selectedAnswer={checkedQuestions[currentTicket[activeQuestionNumber].id]}
                       isExam={isExam}
             />
