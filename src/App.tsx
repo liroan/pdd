@@ -8,7 +8,8 @@ import {getAllQuestions, addCheckedQuestion} from "./store/mainReducer";
 import Ticket from "./components/Ticket/Ticket";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ResultPage from "./views/resultPage/ResultPage";
-import ThematicPage from "./views/ThematicPage/ThematicPage";
+import MarathonPage from "./views/MarathonPage/MarathonPage";
+import TopicPage from "./views/TopicPage/TopicPage";
 
 interface AppProps {
     getAllQuestions: () => void;
@@ -32,7 +33,8 @@ const App:FC<AppProps> = ({ getAllQuestions, appInitialized }) => {
                             <Route path="/ticket/:id" element={<Ticket />}/>
                             <Route path="/exam/:id" element={<Ticket isExam />}/>
                             <Route path="/ticket/:id/result" element={<ResultPage />}/>
-                            <Route path="/lol" element={<ThematicPage />}/>
+                            <Route path="/marathon" element={<MarathonPage />}/>
+                            <Route path="/:topic" element={<TopicPage />}/>
                             <Route path="/" element={<MainPage />}/>
                         </Routes>
                     </BrowserRouter>

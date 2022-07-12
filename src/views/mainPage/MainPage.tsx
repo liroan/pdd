@@ -30,7 +30,7 @@ const MainPage:FC<MainPageProps> = ({ pddTopics }) => {
             </div>
             <PddTopics pddTopics={pddTopics} />
             <div className={styles.mainPage__buttonsOperation}>
-                <Button width="100%" color="dodgerblue" img={clock}>Пройти марафон</Button>
+                <Button width="100%" color="dodgerblue" img={clock} to="/marathon">Пройти марафон</Button>
             </div>
         </div>
     )
