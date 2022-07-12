@@ -13,12 +13,11 @@ interface QuestionNumbersProps {
     addCheckedQuestion?: (payload: ICheckedQuestions) => void;
     selectedAnswer: number | undefined;
     isResultPage?: boolean;
-    activeQuestionNumber: number;
     isExam?: boolean;
 }
 
 
-const Question:FC<QuestionNumbersProps> = ({question, addCheckedQuestion, activeQuestionNumber, selectedAnswer, isResultPage, isExam}) => {
+const Question:FC<QuestionNumbersProps> = ({question, addCheckedQuestion, selectedAnswer, isResultPage, isExam}) => {
     const [showHint, setShowHint] = useState(false);
     if (Object.keys(question).length === 0) return null;
     const isSelectedCorrectAnswer = getCorrectAnswer(question) === selectedAnswer;
@@ -32,7 +31,6 @@ const Question:FC<QuestionNumbersProps> = ({question, addCheckedQuestion, active
                 </div>
                 <Answers answers={question.answers}
                          addCheckedQuestion={addCheckedQuestion}
-                         activeQuestionNumber={activeQuestionNumber}
                          selectedAnswer={selectedAnswer}
                          isSelectedCorrectAnswer={isSelectedCorrectAnswer}
                          isExam={isExam}

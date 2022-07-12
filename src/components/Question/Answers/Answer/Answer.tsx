@@ -4,7 +4,6 @@ import {ICheckedQuestions} from "../../../../types/types";
 
 interface AnswerProps {
     addCheckedQuestion?: (payload: ICheckedQuestions) => void;
-    activeQuestionNumber: number;
     selectedAnswer: number | undefined;
     isSelectedCorrectAnswer: boolean;
     currentAnswer: number;
@@ -13,12 +12,12 @@ interface AnswerProps {
     questionId: string;
 }
 
-const Answer:FC<AnswerProps> = ({ addCheckedQuestion, selectedAnswer, activeQuestionNumber,
+const Answer:FC<AnswerProps> = ({ addCheckedQuestion, selectedAnswer,
                                     currentAnswer, text, isSelectedCorrectAnswer, isExam, questionId }) => {
     const checkQuestions = useCallback(() => {
         if (!addCheckedQuestion) return;
         addCheckedQuestion({question: questionId, answer: currentAnswer})
-    }, [activeQuestionNumber, currentAnswer, questionId])
+    }, [currentAnswer, questionId])
     return (
         <li onClick={checkQuestions}
             className={typeof selectedAnswer === "number" ? styles.question__answers_disabled : ""}

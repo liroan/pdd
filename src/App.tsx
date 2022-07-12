@@ -8,6 +8,7 @@ import {getAllQuestions, addCheckedQuestion} from "./store/mainReducer";
 import Ticket from "./components/Ticket/Ticket";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ResultPage from "./views/resultPage/ResultPage";
+import ThematicPage from "./views/ThematicPage/ThematicPage";
 
 interface AppProps {
     getAllQuestions: () => void;
@@ -31,6 +32,7 @@ const App:FC<AppProps> = ({ getAllQuestions, appInitialized }) => {
                             <Route path="/ticket/:id" element={<Ticket />}/>
                             <Route path="/exam/:id" element={<Ticket isExam />}/>
                             <Route path="/ticket/:id/result" element={<ResultPage />}/>
+                            <Route path="/lol" element={<ThematicPage />}/>
                             <Route path="/" element={<MainPage />}/>
                         </Routes>
                     </BrowserRouter>
