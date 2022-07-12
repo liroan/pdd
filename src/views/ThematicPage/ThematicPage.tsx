@@ -5,15 +5,27 @@ import Question from "../../components/Question/Question";
 import ThematicHeader from "../../components/ThematicHeader/ThematicHeader";
 import Button from "../../components/Button/Button";
 import styles from "./ThematicPage.module.scss"
+import {ICheckedQuestions, IQuestion} from "../../types/types";
+import {FC} from "react";
 
+interface ThematicPageProps {
+    questions: IQuestion[];
+    title?: string;
+    subtitle?: string;
+}
 
-const ThematicPage = ({allQuestions, checkedQuestions, addCheckedQuestion}: any) => {
+interface ThematicPageStateProps {
+    checkedQuestions: any
+    addCheckedQuestion: (payload: ICheckedQuestions) => void;
+}
+
+const ThematicPage:FC<ThematicPageProps & ThematicPageStateProps> = ({questions, checkedQuestions, addCheckedQuestion, title, subtitle}) => {
     return (
         <div className={styles.thematicPage}>
-            <ThematicHeader subtitle="Марафон" title="Здесь собраны все задания. Лучшая подготовка!"/>
+            <ThematicHeader subtitle={subtitle} title={title} />
             <FixedSizeList
-                itemData={allQuestions}
-                itemCount={allQuestions.length}
+                itemData={questions}
+                itemCount={questions.length}
                 itemSize={1020}
                 height={800}
                 width="100%"
@@ -33,7 +45,6 @@ const ThematicPage = ({allQuestions, checkedQuestions, addCheckedQuestion}: any)
     )
 }
 const mapStateToProps = (state: any) => ({
-    allQuestions: state.mainData.allQuestions,
     checkedQuestions: state.mainData.checkedQuestions,
 })
 

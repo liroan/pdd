@@ -4,6 +4,7 @@ import Container from "../../../components/Container/Container";
 import {FC} from "react";
 import {IPddTopics} from "../../../types/types";
 import {getCorrectEnding} from "../../../utils/utils";
+import {Link} from "react-router-dom";
 
 interface PddTopicsProps {
     pddTopics: IPddTopics[];
@@ -29,7 +30,7 @@ const PddTopics:FC<PddTopicsProps> = ({ pddTopics }) => {
                                     <img src={lol} alt=""/>
                                 </div>
                                 <div className={styles.pddTopic__text}>
-                                    <p>{topic[0]} ({topic[1].length} вопрос{getCorrectEnding(topic[1].length)})</p>
+                                    <Link to={"/" + topic[0]}>{topic[0]} ({topic[1].length} вопрос{getCorrectEnding(topic[1].length)})</Link>
                                 </div>
                             </div>
                         )
