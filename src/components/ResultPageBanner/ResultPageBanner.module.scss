@@ -1,0 +1,57 @@
+.banner {
+  background: #F5F5F5;
+  padding: 30px 0;
+}
+.resultPage__container {
+  width: 97%;
+  margin: 0 auto;
+}
+.banner__title {
+  color: red;
+}
+.banner__mainContent {
+  display: flex;
+  justify-content: space-between;
+}
+
+.banner__info {
+  margin-top: 20px;
+}
+
+.banner__subtitle {
+  font-weight: 500;
+}
+
+.banner__timing {
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.banner__image {
+  img {
+    width: 350px;
+  }
+}
+.banner__actions {
+  text-align: center;
+  display: flex;
+  color: dodgerblue;
+  justify-content: space-between;
+  margin-top: 30px;
+  font-size: 14px;
+}
+
+.banner__actions_left {
+  display: flex;
+  p {
+    margin-right: 50px;
+  }
+}
+
+.banner__actions_right {
+  text-align: right;
+  p {
+    margin-right: 100px;
+  }
+}

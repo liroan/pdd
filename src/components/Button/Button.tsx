@@ -12,6 +12,7 @@ interface ButtonProps {
     img?: string;
     style?: CSSProperties;
     to?: string;
+    state?: any;
 }
 
 const Button:FC<ButtonProps> = ({
@@ -22,10 +23,11 @@ const Button:FC<ButtonProps> = ({
     style,
     img,
     colorText,
-    to
+    to,
+    state,
 }) => {
     return (
-            <Link style={{backgroundColor: color, height, width, color: colorText, ...style}} className={styles.button} to={to || "/"}>
+            <Link style={{backgroundColor: color, height, width, color: colorText, ...style}} className={styles.button} to={to || "/"} state={state}>
                 {img && <img src={img} alt=""/>}
                 {children}
             </Link>
