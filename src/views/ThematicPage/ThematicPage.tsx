@@ -5,22 +5,24 @@ import ThematicHeader from "../../components/ThematicHeader/ThematicHeader";
 import Button from "../../components/Button/Button";
 import styles from "./ThematicPage.module.scss"
 import {IQuestion} from "../../types/types";
-import {FC} from "react";
+import React, {FC} from "react";
 
 interface ThematicPageProps {
     questions: IQuestion[];
     title?: string;
     subtitle?: string;
+    children?: React.ReactNode;
 }
 
 interface ThematicPageStateProps {
     checkedQuestions: any
 }
 
-const ThematicPage:FC<ThematicPageProps & ThematicPageStateProps> = ({questions, checkedQuestions, title, subtitle}) => {
+const ThematicPage:FC<ThematicPageProps & ThematicPageStateProps> = ({questions, checkedQuestions, title, subtitle, children}) => {
     return (
         <div className={styles.thematicPage}>
             <ThematicHeader subtitle={subtitle} title={title} />
+            {children}
             <FixedSizeList
                 itemData={questions}
                 itemCount={questions.length}
@@ -37,7 +39,7 @@ const ThematicPage:FC<ThematicPageProps & ThematicPageStateProps> = ({questions,
                 }}
             </FixedSizeList>
             <div className={styles.thematicPage__send}>
-                <Button color="dodgerblue">Завершить</Button>
+                <Button color="dodgerblue" to="/thematicResult" state={{ from: { questions, subtitle },}}>Завершить</Button>
             </div>
         </div>
     )

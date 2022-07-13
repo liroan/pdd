@@ -19,7 +19,7 @@ const ThematicHeader:FC<ThematicHeaderProps> = ({title, subtitle}) => {
                     11:29
                 </div>
                 <div className={styles.thematicHeader__exit}>
-                    <Link to="/">Выйти</Link>
+                    <Link to="/ticket/1/result">Выйти</Link>
                 </div>
             </div>
         </div>

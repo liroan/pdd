@@ -12,6 +12,7 @@ import MarathonPage from "./views/MarathonPage/MarathonPage";
 import TopicPage from "./views/TopicPage/TopicPage";
 import ErrorsPage from "./views/ErrorsPage/ErrorsPage";
 import ChosenQuestionPage from './views/ChosenQuestionPage/ChosenQuestionPage';
+import ThematicResultPage from "./views/ThematicResultPage/ThematicResultPage";
 
 interface AppProps {
     getAllQuestions: () => void;
@@ -39,6 +40,7 @@ const App:FC<AppProps> = ({ getAllQuestions, appInitialized }) => {
                             <Route path="/:topic" element={<TopicPage />}/>
                             <Route path="/errors" element={<ErrorsPage />}/>
                             <Route path="/chosen" element={<ChosenQuestionPage />}/>
+                            <Route path="/thematicResult" element={<ThematicResultPage />}/>
                             <Route path="/" element={<MainPage />}/>
                         </Routes>
                     </BrowserRouter>
