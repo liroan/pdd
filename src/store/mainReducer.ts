@@ -8,6 +8,7 @@ const SET_APP_INITIALIZED = "SET_APP_INITIALIZED";
 const SET_TOPICS = "SET_TOPICS";
 const ADD_ERROR_QUESTIONS = "ADD_ERROR_QUESTIONS";
 const ADD_CHOSEN_QUESTION = "ADD_CHOSEN_QUESTION";
+const REMOVE_CHOSEN_QUESTION = "REMOVE_CHOSEN_QUESTION";
 const SET_ALL_QUESTIONS = "SET_ALL_QUESTIONS";
 
 interface InitialStateInterface {
@@ -82,6 +83,14 @@ const mainReducer = (state = initialState, action: ActionInterface<any>) => {
                 ...state,
                 chosenQuestions: { ...state.chosenQuestions, [question.id]: question}
             }
+        case REMOVE_CHOSEN_QUESTION:
+            const questionId = action.payload;
+            const newChosenQuestions = { ...state.chosenQuestions };
+            delete newChosenQuestions[questionId];
+            return {
+                ...state,
+                chosenQuestions: newChosenQuestions,
+            }
         default:
             return state;
     }
@@ -94,6 +103,7 @@ export const addCheckedQuestion = (payload: ICheckedQuestions):ActionInterface<I
 const setAppInitialized = ():ActionInterface<any> => ({ type: SET_APP_INITIALIZED });
 export const addErrorQuestions = (questions: IQuestion[]):ActionInterface<IQuestion[]> => ({ type: ADD_ERROR_QUESTIONS,  payload: questions });
 export const addChosenQuestions = (question: IQuestion):ActionInterface<IQuestion> => ({ type: ADD_CHOSEN_QUESTION,  payload: question });
+export const removeChosenQuestions = (questionId: string):ActionInterface<string> => ({ type: REMOVE_CHOSEN_QUESTION,  payload: questionId });
 const convertToArrayTickets = (questions: IQuestion[]): Array<IQuestion[]> => {
     const countQuestionsInTickets: number = 20;
     const tickets:Array<IQuestion[]> = new Array(questions.length / countQuestionsInTickets);

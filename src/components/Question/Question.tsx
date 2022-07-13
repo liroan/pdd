@@ -7,6 +7,10 @@ import {ICheckedQuestions, IQuestion} from "../../types/types";
 import Answers from "./Answers/Answers";
 import Hint from "./Hint/Hint";
 import Help from "./Help/Help";
+import star from "../../assets/starQuestion.png";
+import starFill from "../../assets/starQuestionFill.png";
+import {connect} from "react-redux";
+import {addCheckedQuestion, addChosenQuestions, removeChosenQuestions} from "../../store/mainReducer";
 
 interface QuestionNumbersProps {
     question: IQuestion;
@@ -14,18 +18,39 @@ interface QuestionNumbersProps {
     selectedAnswer: number | undefined;
     isResultPage?: boolean;
     isExam?: boolean;
+    isChosenQuestion?: boolean;
+    removeChosenQuestions: (questionId: string) => void;
+    addChosenQuestions: (question: IQuestion) => void;
 }
 
 
-const Question:FC<QuestionNumbersProps> = ({question, addCheckedQuestion, selectedAnswer, isResultPage, isExam}) => {
+const Question:FC<QuestionNumbersProps> = ({question, addCheckedQuestion, selectedAnswer,
+                                               isResultPage, isExam,
+                                               isChosenQuestion, addChosenQuestions, removeChosenQuestions}) => {
     const [showHint, setShowHint] = useState(false);
     if (Object.keys(question).length === 0) return null;
     const isSelectedCorrectAnswer = getCorrectAnswer(question) === selectedAnswer;
     return (
         <div className={styles.question}>
-            <Container>
+            {isChosenQuestion ? (
+                <div className={styles.question__star} onClick={() => {
+                    console.log('lol')
+                    removeChosenQuestions(question.id)
+                }}>
+                    <img src={starFill} alt=""/>
+                </div>
+            ) : (
+                <div className={styles.question__star} onClick={() => {
+                    console.log('lol')
+                    addChosenQuestions(question)
+                }}>
+                    <img src={star} alt=""/>
+                </div>
+            )}
+            <Container >
                 <h4 className={styles.question__title}>{question.title}</h4>
                 <div className={styles.question__image}><img src={orig} alt=""/></div>
+
                 <div className={styles.question__text}>
                     <h5>{question.question}</h5>
                 </div>
@@ -42,5 +67,8 @@ const Question:FC<QuestionNumbersProps> = ({question, addCheckedQuestion, select
         </div>
     )
 }
+const mapStateToProps = () => ({
 
-export default Question;
+})
+
+export default connect(mapStateToProps, { addCheckedQuestion, removeChosenQuestions, addChosenQuestions })(Question);
