@@ -25,8 +25,8 @@ const MainPage:FC<MainPageProps> = ({ pddTopics }) => {
             </div>
             <TicketChapter />
             <div className={styles.mainPage__buttonsOperation}>
-                <Button width="100%" color="purple" img={star}>Избранное</Button>
-                <Button width="100%" color="red" img={alertImg}>Мои ошибки</Button>
+                <Button width="100%" color="purple" img={star} to="/chosen">Избранное</Button>
+                <Button width="100%" color="red" img={alertImg} to="/errors">Мои ошибки</Button>
             </div>
             <PddTopics pddTopics={pddTopics} />
             <div className={styles.mainPage__buttonsOperation}>

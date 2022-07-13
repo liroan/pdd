@@ -10,6 +10,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ResultPage from "./views/resultPage/ResultPage";
 import MarathonPage from "./views/MarathonPage/MarathonPage";
 import TopicPage from "./views/TopicPage/TopicPage";
+import ErrorsPage from "./views/ErrorsPage/ErrorsPage";
+import ChosenQuestionPage from './views/ChosenQuestionPage/ChosenQuestionPage';
 
 interface AppProps {
     getAllQuestions: () => void;
@@ -35,6 +37,8 @@ const App:FC<AppProps> = ({ getAllQuestions, appInitialized }) => {
                             <Route path="/ticket/:id/result" element={<ResultPage />}/>
                             <Route path="/marathon" element={<MarathonPage />}/>
                             <Route path="/:topic" element={<TopicPage />}/>
+                            <Route path="/errors" element={<ErrorsPage />}/>
+                            <Route path="/chosen" element={<ChosenQuestionPage />}/>
                             <Route path="/" element={<MainPage />}/>
                         </Routes>
                     </BrowserRouter>
