@@ -4,18 +4,17 @@ import Question from "../Question/Question";
 import QuestionNumbers from "./QuestionNumbers/QuestionNumbers";
 import {useParams} from "react-router-dom";
 import {connect} from "react-redux";
-import {addCheckedQuestion} from "../../store/mainReducer";
-import {ICheckedQuestions, IQuestion} from "../../types/types";
+import {IQuestion} from "../../types/types";
 import ThematicHeader from "../ThematicHeader/ThematicHeader";
 
 interface TicketProps {
     pddTickets: Array<IQuestion[]>;
-    addCheckedQuestion: (payload: ICheckedQuestions) => void;
     checkedQuestions: any;
     isExam?: boolean;
+    chosenQuestions: any;
 }
 
-const Ticket:FC<TicketProps> = ({pddTickets, addCheckedQuestion, checkedQuestions, isExam}) => {
+const Ticket:FC<TicketProps> = ({pddTickets, checkedQuestions, isExam, chosenQuestions}) => {
     const ticketNumber = Number(useParams().id || 1);
     const [activeQuestionNumber, setActiveQuestionNumber] = useState(0);
     const currentTicket = pddTickets[ticketNumber - 1];
@@ -29,9 +28,9 @@ const Ticket:FC<TicketProps> = ({pddTickets, addCheckedQuestion, checkedQuestion
                              isExam={isExam}
             />
             <Question question={currentTicket[activeQuestionNumber]}
-                      addCheckedQuestion={addCheckedQuestion}
                       selectedAnswer={checkedQuestions[currentTicket[activeQuestionNumber].id]}
                       isExam={isExam}
+                      isChosenQuestion={!!chosenQuestions[currentTicket[activeQuestionNumber].id]}
             />
         </div>
     )
@@ -40,6 +39,7 @@ const Ticket:FC<TicketProps> = ({pddTickets, addCheckedQuestion, checkedQuestion
 const mapStateToProps = (state: any) => ({
     pddTickets: state.mainData.pddTickets,
     checkedQuestions: state.mainData.checkedQuestions,
+    chosenQuestions: state.mainData.chosenQuestions,
 })
 
-export default connect(mapStateToProps, { addCheckedQuestion })(Ticket);
+export default connect(mapStateToProps)(Ticket);
