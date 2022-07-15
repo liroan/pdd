@@ -18,6 +18,24 @@ const Ticket:FC<TicketProps> = ({pddTickets, checkedQuestions, isExam, chosenQue
     const ticketNumber = Number(useParams().id || 1);
     const [activeQuestionNumber, setActiveQuestionNumber] = useState(0);
     const currentTicket = pddTickets[ticketNumber - 1];
+    const [isCanExit, seIsCanExit] = useState(false);
+    const nextQuestion = () => {
+        for (let i = activeQuestionNumber + 1; i < currentTicket.length; i++) {
+            if (typeof checkedQuestions[currentTicket[i].id] !== "number") {
+                setActiveQuestionNumber(i);
+                return true;
+            }
+        }
+        for (let i = 0; i < activeQuestionNumber; i++) {
+            if (typeof checkedQuestions[currentTicket[i].id] !== "number") {
+                setActiveQuestionNumber(i);
+                return true;
+            }
+        }
+        seIsCanExit(true);
+        return false;
+    }
+
     return (
         <div className={styles.ticket}>
             <ThematicHeader title={`Тренировочный билет ${ticketNumber}`} subtitle={`Билет ${ticketNumber} ПДД 2022 решать онлайн`}/>
@@ -31,6 +49,9 @@ const Ticket:FC<TicketProps> = ({pddTickets, checkedQuestions, isExam, chosenQue
                       selectedAnswer={checkedQuestions[currentTicket[activeQuestionNumber].id]}
                       isExam={isExam}
                       isChosenQuestion={!!chosenQuestions[currentTicket[activeQuestionNumber].id]}
+                      isLastQuestion={activeQuestionNumber === 19}
+                      nextQuestion={nextQuestion}
+                      isCanExit={isCanExit}
             />
         </div>
     )

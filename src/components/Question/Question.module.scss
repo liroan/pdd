@@ -38,10 +38,10 @@
 }
 .question__answers {
   margin: 25px 0 100px 15px;
+  color: dodgerblue;
   li {
     font-size: 18px;
     list-style: decimal;
-    color: dodgerblue;
     margin-bottom: 25px;
     cursor: pointer;
   }
@@ -56,12 +56,24 @@
 }
 
 .question__actions {
+
+}
+
+.question__actions_moreButtons {
   padding-bottom: 50px;
   font-size: 14px;
   color: dodgerblue;
   display: flex;
   justify-content: space-between;
 }
+.question__actions_oneButton {
+  padding-bottom: 50px;
+  font-size: 14px;
+  color: dodgerblue;
+  display: flex;
+  justify-content: flex-end;
+}
+
 
 .question__help {
   display: flex;
@@ -71,19 +83,25 @@
 }
 
 .question__rightAnswers {
-  margin-bottom: 50px;
+  padding-bottom: 50px;
   h6 {
     font-size: 14px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
   }
   font-size: 14px;
 }
 
 .question__answers_correct {
+  span {
+    color: green;
+  }
   color: green;
 }
 
 .question__answers_incorrect {
+  span {
+    color: red;
+  }
   color: red;
 }
 

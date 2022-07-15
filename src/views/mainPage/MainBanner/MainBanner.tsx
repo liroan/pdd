@@ -1,8 +1,8 @@
-import Button from "../../../components/Button/Button";
 import Container from "../../../components/Container/Container";
 import styles from "./MainBanner.module.scss"
 import pddHunt2 from "../../../assets/pddHunt2.png"
 import {getRandomArbitrary} from "../../../utils/utils";
+import NavButton from "../../../components/NavButton/NavButton";
 const MainBanner = () => {
     return (
         <div className={styles.banner}>
@@ -16,7 +16,7 @@ const MainBanner = () => {
                             Покажи, что ты можешь, и реши экзамен без единой ошибки
                         </h3>
                         <div className={styles.banner__centering}>
-                            <Button color="red" width={250} to={"/exam/" + getRandomArbitrary(1, 41)}>Пройти экзамен</Button>
+                            <NavButton color="red" width={250} to={"/exam/" + getRandomArbitrary(1, 41)}>Пройти экзамен</NavButton>
                         </div>
                     </div>
                     <div className={styles.banner__picture}>

@@ -1,8 +1,8 @@
 import styles from "./TicketsСhapter.module.scss"
 import {FC} from "react";
-import Button from "../../../components/Button/Button";
 import TicketNumbers from "./TicketNumbers/TicketNumbers";
 import {getRandomArbitrary} from "../../../utils/utils";
+import NavButton from "../../../components/NavButton/NavButton";
 
 const TicketChapter:FC = () => {
     return (
@@ -15,7 +15,7 @@ const TicketChapter:FC = () => {
                 <div className={styles.ticketChapter__exam}>
                     <h4 className={styles.ticketChapter__category}>AB</h4>
                     <div className={styles.ticketChapter__button_centralization}>
-                        <Button color="#fff" colorText="dodgerblue" width="300px" to={"/exam/" + getRandomArbitrary(1, 41)}>Сдать экзамен</Button>
+                        <NavButton color="#fff" colorText="dodgerblue" width="300px" to={"/exam/" + getRandomArbitrary(1, 41)}>Сдать экзамен</NavButton>
                     </div>
                 </div>
                 <TicketNumbers />
