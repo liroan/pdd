@@ -1,6 +1,7 @@
 import React, { CSSProperties } from "react";
 import { FC } from "react";
-import styles from "./Button.module.scss"
+import styles from "./NavButton.module.scss"
+import {Link} from "react-router-dom";
 
 interface ButtonProps {
     color?: string;
@@ -12,10 +13,9 @@ interface ButtonProps {
     style?: CSSProperties;
     to?: string;
     state?: any;
-    onClick?: any;
 }
 
-const Button:FC<ButtonProps> = ({
+const NavButton:FC<ButtonProps> = ({
     color,
     children,
     height,
@@ -23,14 +23,15 @@ const Button:FC<ButtonProps> = ({
     style,
     img,
     colorText,
-    onClick,
+    to,
+    state,
 }) => {
     return (
-            <button style={{backgroundColor: color, height, width, color: colorText, ...style}} onClick={onClick} className={styles.button} >
+            <Link style={{backgroundColor: color, height, width, color: colorText, ...style}} className={styles.button} to={to || "/"} state={state}>
                 {img && <img src={img} alt=""/>}
                 {children}
-            </button>
+            </Link>
     )
 }
 
-export default Button;
+export default NavButton;

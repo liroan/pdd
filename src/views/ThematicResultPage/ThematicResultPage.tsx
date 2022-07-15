@@ -19,7 +19,7 @@ const ThematicResultPage = ({checkedQuestions, addErrorQuestions}: any) => {
         return errorQuestions;
     }, [questions, checkedQuestions])
     return (
-        <ThematicPage questions={errorQuestions} title="Тематические билеты" subtitle={"Результаты тренировки"}>
+        <ThematicPage questions={errorQuestions} title="Тематические билеты" subtitle={"Результаты тренировки"} isResultPage>
             <ResultPageBanner countErrorQuestions={errorQuestions.length} countQuestions={questions.length} time="06: 50"/>
         </ThematicPage>
     )

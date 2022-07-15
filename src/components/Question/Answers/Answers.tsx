@@ -10,11 +10,13 @@ interface AnswersProps {
     isSelectedCorrectAnswer: boolean;
     isExam?: boolean;
     questionId: string;
+    isResultPage?: boolean;
+    correctAnswer: number;
 }
 
 
 const Answers:FC<AnswersProps> = ({ answers, addCheckedQuestion,
-                                      selectedAnswer, isSelectedCorrectAnswer, isExam, questionId }) => {
+                                      selectedAnswer, isSelectedCorrectAnswer, isExam, questionId, isResultPage, correctAnswer }) => {
     return (
         <div className={styles.question__answers}>
             <ol>
@@ -26,6 +28,8 @@ const Answers:FC<AnswersProps> = ({ answers, addCheckedQuestion,
                             text={answer["answer_text"]}
                             isExam={isExam}
                             questionId={questionId}
+                            isResultPage={isResultPage}
+                            correctAnswer={correctAnswer}
                     />)
                 )}
             </ol>

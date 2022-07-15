@@ -2,7 +2,7 @@ import styles from "./Question.module.scss";
 import Container from "../Container/Container";
 import orig from "../../assets/orig.png";
 import {getCorrectAnswer} from "../../utils/utils";
-import React, {FC, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {ICheckedQuestions, IQuestion} from "../../types/types";
 import Answers from "./Answers/Answers";
 import Hint from "./Hint/Hint";
@@ -11,6 +11,7 @@ import star from "../../assets/starQuestion.png";
 import starFill from "../../assets/starQuestionFill.png";
 import {connect} from "react-redux";
 import {addCheckedQuestion, addChosenQuestions, removeChosenQuestions} from "../../store/mainReducer";
+
 
 interface QuestionNumbersProps {
     question: IQuestion;
@@ -21,15 +22,25 @@ interface QuestionNumbersProps {
     isChosenQuestion?: boolean;
     removeChosenQuestions: (questionId: string) => void;
     addChosenQuestions: (question: IQuestion) => void;
+    isLastQuestion?: boolean;
+    isScrollPage?: boolean;
+    nextQuestion?: any;
+    isCanExit?: boolean;
 }
 
 
 const Question:FC<QuestionNumbersProps> = ({question, addCheckedQuestion, selectedAnswer,
                                                isResultPage, isExam,
-                                               isChosenQuestion, addChosenQuestions, removeChosenQuestions}) => {
+                                               isChosenQuestion, addChosenQuestions,
+                                               removeChosenQuestions, isLastQuestion, isScrollPage, nextQuestion, isCanExit}) => {
     const [showHint, setShowHint] = useState(false);
+    useEffect(() => {
+        setShowHint(false);
+    }, [question])
     if (Object.keys(question).length === 0) return null;
     const isSelectedCorrectAnswer = getCorrectAnswer(question) === selectedAnswer;
+
+
     return (
         <div className={styles.question}>
             {isChosenQuestion ? (
@@ -60,9 +71,20 @@ const Question:FC<QuestionNumbersProps> = ({question, addCheckedQuestion, select
                          isSelectedCorrectAnswer={isSelectedCorrectAnswer}
                          isExam={isExam}
                          questionId={question.id}
+                         isResultPage={isResultPage}
+                         correctAnswer={getCorrectAnswer(question)}
                 />
-                { !isExam && <Hint isResultPage={isResultPage} showHint={showHint} /> }
-                <Help isResultPage={isResultPage} showHint={showHint} setShowHint={setShowHint} isExam={isExam} />
+                { !isExam && <Hint isResultPage={isResultPage} showHint={showHint} hint={question.answer_tip} rightAnswer={question.correct_answer} /> }
+                <Help isResultPage={isResultPage}
+                      showHint={showHint}
+                      setShowHint={setShowHint}
+                      isExam={isExam}
+                      isLastQuestion={isLastQuestion}
+                      selectedAnswer={selectedAnswer}
+                      isScrollPage={isScrollPage}
+                      nextQuestion={nextQuestion}
+                      isCanExit={isCanExit}
+                />
             </Container>
         </div>
     )

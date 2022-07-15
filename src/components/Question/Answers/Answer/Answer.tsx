@@ -10,23 +10,27 @@ interface AnswerProps {
     text: string;
     isExam?: boolean;
     questionId: string;
+    isResultPage?: boolean;
+    correctAnswer: number;
 }
 
 const Answer:FC<AnswerProps> = ({ addCheckedQuestion, selectedAnswer,
-                                    currentAnswer, text, isSelectedCorrectAnswer, isExam, questionId }) => {
+                                    currentAnswer, text, isSelectedCorrectAnswer, isExam,
+                                    questionId, isResultPage, correctAnswer }) => {
     const checkQuestions = useCallback(() => {
         if (!addCheckedQuestion) return;
         addCheckedQuestion({question: questionId, answer: currentAnswer})
     }, [currentAnswer, questionId])
+    const isShowAnswer = !isExam ? (isSelectedCorrectAnswer ? styles.question__answers_correct : styles.question__answers_incorrect) : styles.question__answers_black;
     return (
         <li onClick={checkQuestions}
-            className={typeof selectedAnswer === "number" ? styles.question__answers_disabled : ""}
+            className={(selectedAnswer === currentAnswer ? isShowAnswer : (correctAnswer === currentAnswer &&( selectedAnswer !== undefined || isResultPage) ? styles.question__answers_correct : "")) + ` ${(typeof selectedAnswer === "number" || isResultPage) ? styles.question__answers_disabled : ""}`}
         >
             {text} 
             {selectedAnswer === currentAnswer &&
                 (
-                    <span className={!isExam ? (isSelectedCorrectAnswer ? styles.question__answers_correct : styles.question__answers_incorrect) : styles.question__answers_black}>
-                        (Ваш ответ)
+                    <span>
+                        &nbsp;(Ваш ответ)
                     </span>
                 )
             }
